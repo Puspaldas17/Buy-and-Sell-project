@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                         String      @id  @default(uuid())
+  firstname                  String      
+  lastname                   String?
+  email                      String      @unique
+  password                   String?    
+  isEmailVerified            Boolean     @default(false)
+  Otp_Verification           OtpTable[]
+  Sell                       Sell[]
+  Buy                        Buy[]
+  Seller                     Trade[]  @relation(name: "seller")
+  Buyer                      Trade[]  @relation(name: "buyer")
+}
+
+model OtpTable {
+  id                  String       @id   @default(uuid())
+  userId              String       
+  user                User        @relation(fields: [userId],references: [id])
+  token               String    @unique
+  otp                 String
+  otpExpiry           String
+  isVerified          Boolean    @default(false)
+}
+
+model Item {
+  id                  String       @id   @default(uuid())
+  title               String
+  description         String
+  sold                Boolean      @default(false)
+  price               Int
+  photo               String[]
+  created             DateTime
+  deleted             Boolean      @default(false)
+  Sell                Sell[]
+  Buy                 Buy[]
+  Trade              Trade[]
+}
+
+model Sell {
+  id                  String          @id   @default(uuid())
+  seller_Id           String
+  itemId              String          @unique
+  item                Item            @relation(fields: [itemId],references: [id])
+  seller              User            @relation(fields: [seller_Id],references: [id])
+}
+
+
+model Buy {
+  id                  String          @id   @default(uuid())
+  item_id             String
+  buyer_Id            String
+  message             String
+  contact             String
+  time                DateTime
+  status              BuyingStatus    @default(pending)
+  Item                Item            @relation(fields: [item_id],references: [id])
+  Buyer               User            @relation(fields: [buyer_Id],references: [id])
+}
+
+
+model Trade {
+  id                     String       @id   @default(uuid())
+  seller_id              String
+  buyer_id               String
+  item_id                String       @unique
+  time                   DateTime
+  Item                   Item         @relation(fields: [item_id],references: [id])
+  Seller                 User         @relation(fields: [seller_id],references: [id],name: "seller")
+  Buyer                  User         @relation(fields: [buyer_id],references: [id],name: "buyer")
+}
+
+enum BuyingStatus {
+  bought
+  failed
+  pending
+}
