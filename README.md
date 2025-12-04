@@ -1,13 +1,5 @@
 # Buy and Sell
 Buy and Sell is a secure and open market place designed for people to pass on second hand goods.
-## Details
-### Team Name: CodeZ
-### Team Members:
-- [@krishan-deo](https://github.com/krishan-deo)
-- [@ayush-gupta-04](https://github.com/ayush-gupta-04)
-- [@achintya-kumar](https://github.com/Achintya512)
-
-
 
 # Tech-stacks used
 - NextJs 
