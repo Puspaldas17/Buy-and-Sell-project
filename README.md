@@ -27,19 +27,11 @@ Buy and Sell is a secure and open market place designed for people to pass on se
 ## Idea
 The idea was to replace several buy and sell group in college. One platform  so all can access unlike the member limit on whatsapp .we also plan to add a section for lost and found for easy mass communication of message to all.
 
-
-
-## Deployment
-https://buy-sell-app-tau.vercel.app/
-
-
 ## Upcoming Changes
 1. Major UI/UX changes with added functionalities.
 2. Intergration google map based searches.
 3. Intergration of Lost and Found sevices using google map.
 4. Integrating websocket consistent connection.
-
-
 
 ## Getting Started
 
@@ -81,8 +73,6 @@ npm run start
 ### Watching the application running.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
 
 
 ## Learn More
